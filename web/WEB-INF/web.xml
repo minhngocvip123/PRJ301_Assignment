@@ -11,6 +11,7 @@
     </session-config>
     
     <welcome-file-list>  
-        <welcome-file>view/Front-Page.html</welcome-file>
+        <welcome-file>Front-Page.html</welcome-file>
+        <welcome-file>index.html</welcome-file>
     </welcome-file-list>  
 </web-app>
