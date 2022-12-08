@@ -4,6 +4,9 @@
  */
 package Controller;
 
+import Model.DefinitionsDAO;
+import Model.WordDAO;
+import Model.Definitions;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 /**
  *
@@ -29,7 +33,13 @@ public class Search extends HttpServlet{
         String language = "";
         
         if(req.getParameter("language").equals("english")){
-            language = "English";
+            WordDAO w = new WordDAO();
+//            DefinitionsDAO d = new DefinitionsDAO();
+            String[] word = w.getWord(searchStr);
+//            ArrayList<Definitions> list = new ArrayList<Definitions>();
+//            list = d.getListDefinitions();
+            req.setAttribute("word", word);
+            req.getRequestDispatcher("Definition_En.jsp").forward(req, resp);
         }else if(req.getParameter("language").equals("japanese")){
             language = "Japanese";
         }else if(req.getParameter("language").equals("vietnamese")){
@@ -38,9 +48,9 @@ public class Search extends HttpServlet{
             language = "English"; //default language is English
         }
         
-        PrintWriter pr = resp.getWriter();
-        pr.println("Search term is: " + searchStr);
-        pr.println("Selected language is: " + language);
+//        PrintWriter pr = resp.getWriter();
+//        pr.println("Search term is: " + searchStr);
+//        pr.println("Selected language is: " + language);
     }
     
 }
