@@ -51,7 +51,6 @@ public class WordDAO extends DBContext {
                 w.Definition = rs.getString("Definition");
                 w.Example = rs.getString("Example");
                 list.add(w);
-                return list;
             }
         } catch (Exception e) {
             System.out.println("getWord fail:" + e.getMessage());
