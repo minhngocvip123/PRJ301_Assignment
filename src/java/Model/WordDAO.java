@@ -8,6 +8,7 @@ import dal.DBContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -34,32 +35,28 @@ public class WordDAO extends DBContext {
         }
     }
 
-    public String[] getWord(String searchStr) {
-        String[] result = null;
+    public ArrayList<Word> getWord(String searchStr) {
+        ArrayList<Word> list = new ArrayList<Word>();
         try {
-            String strSelect = "Select e.Word, d.PartOfSpeech, d.[Definition], d.Example from English e "
-                    + "Inner join Definitions d on e.WordID = d.WordID where e.Word like ?";
+            String strSelect = "Select e.Word, p.PoS, d.[Definition], d.Example from English e \n"
+                    + "join (Definitions d join PartOfSpeech p on d.PoSID = p.PoSID )\n"
+                    + "on e.WordID = d.WordID where e.Word like ?";
             stm = cnn.prepareStatement(strSelect);
             stm.setString(1, "%" + searchStr + "%");
             rs = stm.executeQuery();
             while (rs.next()) {
-                result[0] = rs.getString("Word");
-                result[1] = "" + rs.getInt("PartOfSpeech");
-                result[2] = rs.getString("Definition");
-                result[3] = rs.getString("Example");
-                return result;
+                Word w = new Word();
+                w.word = rs.getString("Word");
+                w.PartOfSpeech = rs.getString("PoS");
+                w.Definition = rs.getString("Definition");
+                w.Example = rs.getString("Example");
+                list.add(w);
+                return list;
             }
         } catch (Exception e) {
             System.out.println("getWord fail:" + e.getMessage());
         }
-        return result;
-    }
-    
-    public static void main(String[] args) {
-        WordDAO w = new WordDAO();
-        String[] str = w.getWord("reb");
-        
-        System.out.println(Arrays.toString(str));
+        return list;
     }
 
 }

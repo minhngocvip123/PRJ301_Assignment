@@ -10,14 +10,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Search Results</title>
     </head>
     <body>
-        <c:forEach items="${result}" var="item">
-            <h1>${item[0]}</h1>
-            <h3>${item[1]}</h3>
-            <h4>${item[2]}</h4>
-            <h4>${item[3]}</h4>
+        <c:forEach items="${list}" var="item">
+            <h1>${item.getWord()}</h1>
+            <h3>${item.getPartOfSpeech()}</h3>
+            <h4>${item.getDefinition()}</h4>
+            <h4>${item.getExample()}</h4>
         </c:forEach>        
     </body>
 </html>

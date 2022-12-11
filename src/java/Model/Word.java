@@ -11,13 +11,19 @@ package Model;
 public class Word {
     int wordID;
     String word;
+    String PartOfSpeech;
+    String Definition;
+    String Example;
 
     public Word() {
     }
 
-    public Word(int wordID, String word) {
+    public Word(int wordID, String word, String PartOfSpeech, String Definition, String Example) {
         this.wordID = wordID;
         this.word = word;
+        this.PartOfSpeech = PartOfSpeech;
+        this.Definition = Definition;
+        this.Example = Example;
     }
 
     public int getWordID() {
@@ -35,6 +41,29 @@ public class Word {
     public void setWord(String word) {
         this.word = word;
     }
-    
+
+    public String getPartOfSpeech() {
+        return PartOfSpeech;
+    }
+
+    public void setPartOfSpeech(String PartOfSpeech) {
+        this.PartOfSpeech = PartOfSpeech;
+    }
+
+    public String getDefinition() {
+        return Definition;
+    }
+
+    public void setDefinition(String Definition) {
+        this.Definition = Definition;
+    }
+
+    public String getExample() {
+        return Example;
+    }
+
+    public void setExample(String Example) {
+        this.Example = Example;
+    }
     
 }
