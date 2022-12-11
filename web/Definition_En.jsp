@@ -36,7 +36,7 @@
         <title>Search Results</title>
     </head>
     <body class="u-body u-xl-mode" data-lang="en"><header class="u-clearfix u-header u-white u-header" id="sec-9f90"><div class="u-clearfix u-sheet u-sheet-1">
-                <a href="/Front-Page.html" class="u-image u-logo u-image-1" data-image-width="300" data-image-height="300" title="Front Page">
+                <a href="Front-Page.html" class="u-image u-logo u-image-1" data-image-width="300" data-image-height="300" title="Front Page">
                     <img src="images/logo.png" class="u-logo-image u-logo-image-1">
                 </a>
                 <nav class="u-menu u-menu-hamburger u-offcanvas u-menu-1" data-responsive-from="XL">
@@ -64,7 +64,7 @@
                         <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
                     </div>
                 </nav>
-                <form action="#" method="get" class="u-border-1 u-border-grey-30 u-search u-search-left u-white u-search-1">
+                <form action="search" method="get" class="u-border-1 u-border-grey-30 u-search u-search-left u-white u-search-1">
                     <button class="u-search-button" type="submit">
                         <span class="u-search-icon u-spacing-10">
                             <svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 56.966 56.966"><use xlink:href="#svg-51e1"></use></svg>
@@ -72,6 +72,11 @@
                         </span>
                     </button>
                     <input class="u-search-input" type="search" name="search" value="" placeholder="Search">
+                    <select class="language" id="language" name="language">
+                        <option value="english">English</option>
+                        <option value="japanese">Japanese</option>
+                        <option value="vietnamese">Vietnamese</option>
+                    </select>
                 </form>
             </div></header>
             <c:forEach items="${list}" var="item">
