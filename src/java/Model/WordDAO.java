@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  *
@@ -40,9 +39,9 @@ public class WordDAO extends DBContext {
         try {
             String strSelect = "Select e.Word, p.PoS, d.[Definition], d.Example from English e \n"
                     + "join (Definitions d join PartOfSpeech p on d.PoSID = p.PoSID )\n"
-                    + "on e.WordID = d.WordID where e.Word like ?";
+                    + "on e.WordID = d.WordID where e.Word = ?";
             stm = cnn.prepareStatement(strSelect);
-            stm.setString(1, "%" + searchStr + "%");
+            stm.setString(1, searchStr);
             rs = stm.executeQuery();
             while (rs.next()) {
                 Word w = new Word();
@@ -56,6 +55,41 @@ public class WordDAO extends DBContext {
             System.out.println("getWord fail:" + e.getMessage());
         }
         return list;
+    }
+
+//    public ArrayList<Word> getPoS() {
+//        ArrayList<Word> list = new ArrayList<Word>();
+//        try {
+//            String strSelect = "select PoS from PartOfSpeech";
+//            stm = cnn.prepareStatement(strSelect);
+//            rs = stm.executeQuery();
+//            while (rs.next()) {
+//                Word w = new Word();
+//                w.PartOfSpeech = rs.getString("PoS");
+//                list.add(w);
+//            }
+//        } catch (Exception e) {
+//            System.out.println("getPoS fail:" + e.getMessage());
+//        }
+//        return list;
+//    }
+    public void addWord(String word, int pos, String definition, String example) {
+        try {
+            String strupdate = "insert into English (Word) \n"
+                    + "values (?) \n"
+                    + "\n"
+                    + "insert into Definitions (WordID, PoSID, [Definition], Example) \n"
+                    + "values ((select WordID from English where Word = ?), ?, ?, ?)";
+            stm = cnn.prepareStatement(strupdate);
+            stm.setString(1, word);
+            stm.setString(2, word);
+            stm.setInt(3, pos);
+            stm.setString(4, definition);
+            stm.setString(5, example);
+            stm.execute();
+        } catch (Exception e) {
+            System.out.println("addWord fail:" + e.getMessage());
+        }
     }
 
 }

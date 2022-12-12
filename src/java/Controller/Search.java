@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  * @author Admin
  */
 @WebServlet(urlPatterns = {"/search"})
-public class Search extends HttpServlet{
+public class Search extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,25 +30,29 @@ public class Search extends HttpServlet{
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String searchStr = req.getParameter("search");
         String language = "";
-        
-        if(req.getParameter("language").equals("english")){
-            //return searched word. Might return all values if found multiples
+
+        if (req.getParameter("language").equals("english")) {
             WordDAO w = new WordDAO();
             ArrayList<Word> list = new ArrayList<Word>();
             list = w.getWord(searchStr);
-            req.setAttribute("list", list);
-            req.getRequestDispatcher("Definition_En.jsp").forward(req, resp);
-        }else if(req.getParameter("language").equals("japanese")){
+            if (list.isEmpty()) {//if returns nothing, send to handle page
+                req.setAttribute("searchStr", searchStr);
+                req.getRequestDispatcher("NotExist.jsp").forward(req, resp);
+            } else {//return searched word. Might return all values if found multiples
+                req.setAttribute("list", list);
+                req.getRequestDispatcher("Definition_En.jsp").forward(req, resp);
+            }
+        } else if (req.getParameter("language").equals("japanese")) {
             language = "Japanese";
-        }else if(req.getParameter("language").equals("vietnamese")){
+        } else if (req.getParameter("language").equals("vietnamese")) {
             language = "Vietnamese";
-        }else{
+        } else {
             language = "English"; //default language is English
         }
-        
+
 //        PrintWriter pr = resp.getWriter();
 //        pr.println("Search term is: " + searchStr);
 //        pr.println("Selected language is: " + language);
     }
-    
+
 }

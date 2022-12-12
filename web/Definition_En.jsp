@@ -57,7 +57,7 @@
                             <div class="u-inner-container-layout u-sidenav-overflow">
                                 <div class="u-menu-close"></div>
                                 <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="/Front-Page.html">Front Page</a>
-                                    </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="/SearchResults_English.html">SearchResults_English</a>
+                                    </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="add" style="padding: 10px 34px;">Add a new word or definition</a>
                                     </li></ul>
                             </div>
                         </div>
@@ -85,9 +85,7 @@
                     <h1 class="u-text u-text-default u-text-1">${item.getWord()}</h1>
                     <h4 class="u-text u-text-default u-text-2">${item.getPartOfSpeech()}</h4>
                     <p class="u-large-text u-text u-text-default u-text-variant u-text-3">${item.getDefinition()}</p>
-                    <ul class="u-text u-text-default u-text-4">
-                        <li>${item.getExample()}</li>
-                    </ul>
+                    <blockquote class="u-text u-text-default u-text-4">${item.getExample()}</blockquote>
                     <div class="u-border-3 u-border-grey-dark-1 u-expanded-width u-line u-line-horizontal u-line-1"></div>
                 </div>
             </section>
