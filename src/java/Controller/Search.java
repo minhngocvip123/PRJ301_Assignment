@@ -54,7 +54,7 @@ public class Search extends HttpServlet {
                 req.setAttribute("list", list);
                 req.getRequestDispatcher("Definition.jsp").forward(req, resp);
             }
-        } else if (req.getParameter("language").equals("vietnamese")) {
+        } else {
             WordDAO w = new WordDAO();
             ArrayList<Word> list = new ArrayList<Word>();
             String unsignedWord = RemoveAccent.removeAccent(searchStr);//remove accent from search string
@@ -66,8 +66,6 @@ public class Search extends HttpServlet {
                 req.setAttribute("list", list);
                 req.getRequestDispatcher("Definition.jsp").forward(req, resp);
             }
-        } else {
-            language = "English"; //default language is English
         }
     }
 
