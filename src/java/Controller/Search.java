@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import Model.RemoveAccent;
 import Model.Word;
 import Model.WordDAO;
 import jakarta.servlet.ServletException;
@@ -54,7 +55,17 @@ public class Search extends HttpServlet {
                 req.getRequestDispatcher("Definition.jsp").forward(req, resp);
             }
         } else if (req.getParameter("language").equals("vietnamese")) {
-            language = "Vietnamese";
+            WordDAO w = new WordDAO();
+            ArrayList<Word> list = new ArrayList<Word>();
+            String unsignedWord = RemoveAccent.removeAccent(searchStr);//remove accent from search string
+            list = w.getWordVN(unsignedWord);
+            if (list.isEmpty()) {//if returns nothing, send to handle page
+                req.setAttribute("searchStr", searchStr);
+                req.getRequestDispatcher("NotExist.jsp").forward(req, resp);
+            } else {//return searched word. Might return all values if found multiples
+                req.setAttribute("list", list);
+                req.getRequestDispatcher("Definition.jsp").forward(req, resp);
+            }
         } else {
             language = "English"; //default language is English
         }

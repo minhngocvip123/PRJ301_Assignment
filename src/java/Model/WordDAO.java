@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Model;
+
 import dal.DBContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -196,23 +197,48 @@ public class WordDAO extends DBContext {
         }
         return false;
     }
-
+    
+    //main method to test out all these different DAO methods.
     public static void main(String[] args) {
         String word = "濛々";
         String romaaji = "moumou";
         int pos = 3;
         String definition = "vague (as in being unable to think clearly); dim";
         String example = "ほこりがもうもうと立った。 - The dust rose in clouds.";
-        
+
         WordDAO w = new WordDAO();
 //        if(w.checkWordJP(word)) System.out.println("exist");
 //        else System.out.println("does not exist");
 //        w.addWordJP(word, romaaji, pos, definition, example);
 //        w.addDefinitionJP(word, pos, definition, example);
         ArrayList<Word> list = new ArrayList<Word>();
-        list = w.getWordJP("から");
+//        list = w.getWordJP("から");
+        list = w.getWordVN(RemoveAccent.removeAccent("tốt"));
         for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(i));
         }
+    }
+
+    public ArrayList<Word> getWordVN(String searchStr) {
+        ArrayList<Word> list = new ArrayList<Word>();
+        try {
+            String strSelect = "Select v.Word, p.PoS, d.[Definition], d.Example from Vietnamese v \n"
+                    + "join (DefinitionsVN d join PartOfSpeech p on d.PoSID = p.PoSID ) \n"
+                    + "on v.WordID = d.WordID where dbo.ufn_removeMark(v.Word) = ?";
+            stm = cnn.prepareStatement(strSelect);
+            stm.setString(1, searchStr);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Word w = new Word();
+                w.word = rs.getString("Word");
+                w.PartOfSpeech = rs.getString("PoS");
+                w.Definition = rs.getString("Definition");
+                w.Example = rs.getString("Example");
+                list.add(w);
+            }
+        } catch (Exception e) {
+            System.out.println("getWordVN fail:" + e.getMessage());
+        }
+        return list;
     }
 }
