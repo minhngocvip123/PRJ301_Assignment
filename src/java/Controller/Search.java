@@ -43,7 +43,9 @@ public class Search extends HttpServlet {
                 req.getRequestDispatcher("Definition_En.jsp").forward(req, resp);
             }
         } else if (req.getParameter("language").equals("japanese")) {
-            language = "Japanese";
+            WordDAO w = new WordDAO();
+            ArrayList<Word> list = new ArrayList<Word>();
+//            list = w.getWordJP(searchStr);
         } else if (req.getParameter("language").equals("vietnamese")) {
             language = "Vietnamese";
         } else {
