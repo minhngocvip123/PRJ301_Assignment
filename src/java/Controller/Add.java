@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -30,23 +29,23 @@ public class Add extends HttpServlet {
         int pos = Integer.parseInt(req.getParameter("pos"));
         String definition = req.getParameter("definition");
         String example = req.getParameter("example");
-        
-        if(language.equals("english")){
-            WordDAO w = new WordDAO();
-            w.addWord(word, pos, definition, example);
-            ArrayList<Word> list = new ArrayList<Word>();
-            list = w.getWord(word);
-            req.setAttribute("list", list);
-            req.getRequestDispatcher("Definition_En.jsp").forward(req, resp);
-        }
 
-//        PrintWriter pr = resp.getWriter();
-//        pr.println(language);
-//        pr.println(word);
-//        pr.println(romaaji);
-//        pr.println(pos);
-//        pr.println(definition);
-//        pr.println(example);
+        if (language.equals("english")) {
+            WordDAO w = new WordDAO();
+            if (w.checkWord(word)) {//if word already exists, let user add definition only
+                w.addDefinition(word, pos, definition, example);
+                ArrayList<Word> list = new ArrayList<Word>();
+                list = w.getWord(word);
+                req.setAttribute("list", list);
+                req.getRequestDispatcher("Definition_En.jsp").forward(req, resp);
+            } else {//if the word doesn't exist, add new word and provide definition
+                w.addWord(word, pos, definition, example);
+                ArrayList<Word> list = new ArrayList<Word>();
+                list = w.getWord(word);
+                req.setAttribute("list", list);
+                req.getRequestDispatcher("Definition_En.jsp").forward(req, resp);
+            }
+        }
 
     }
 

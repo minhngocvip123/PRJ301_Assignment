@@ -92,4 +92,34 @@ public class WordDAO extends DBContext {
         }
     }
 
+    public boolean checkWord(String word) {
+        try {
+            String strSelect = "select * from English where Word = ?";
+            stm = cnn.prepareStatement(strSelect);
+            stm.setString(1, word);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("checkWord fail:" + e.getMessage());
+        }
+        return false;
+    }
+
+    public void addDefinition(String word, int pos, String definition, String example) {
+        try {
+            String strupdate = "insert into Definitions (WordID, PoSID, [Definition], Example) \n"
+                    + "values ((select WordID from English where Word = ?), ?, ?, ?)";
+            stm = cnn.prepareStatement(strupdate);
+            stm.setString(1, word);
+            stm.setInt(2, pos);
+            stm.setString(3, definition);
+            stm.setString(4, example);
+            stm.execute();
+        } catch (Exception e) {
+            System.out.println("addDefinition fail:" + e.getMessage());
+        }
+    }
+
 }
