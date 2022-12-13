@@ -48,7 +48,7 @@
                         </a>
                     </div>
                     <div class="u-nav-container">
-                        <ul class="u-nav u-spacing-30 u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-border-2 u-border-active-palette-3-base u-border-hover-palette-3-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-palette-3-base u-text-grey-90 u-text-hover-grey-90" href="/Front-Page.html" style="padding: 10px 1px 10px 0px;">Front Page</a>
+                        <ul class="u-nav u-spacing-30 u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-border-2 u-border-active-palette-3-base u-border-hover-palette-3-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-palette-3-base u-text-grey-90 u-text-hover-grey-90" href="Front-Page.html" style="padding: 10px 1px 10px 0px;">Front Page</a>
                             </li><li class="u-nav-item"><a class="u-border-2 u-border-active-palette-3-base u-border-hover-palette-3-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-palette-3-base u-text-grey-90 u-text-hover-grey-90" href="/SearchResults_English.html" style="padding: 10px 1px 10px 0px;">SearchResults_English</a>
                             </li></ul>
                     </div>
@@ -56,7 +56,7 @@
                         <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
                             <div class="u-inner-container-layout u-sidenav-overflow">
                                 <div class="u-menu-close"></div>
-                                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="/Front-Page.html">Front Page</a>
+                                <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Front-Page.html">Front Page</a>
                                     </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="add" style="padding: 10px 34px;">Add a new word or definition</a>
                                     </li></ul>
                             </div>

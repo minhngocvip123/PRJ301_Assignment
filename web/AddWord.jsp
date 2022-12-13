@@ -7,32 +7,32 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html style="font-size: 16px;" lang="en"><head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <title>AddWord</title>
-    <link rel="stylesheet" href="nicepage.css" media="screen">
-<link rel="stylesheet" href="AddWord.css" media="screen">
-    <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
-    <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
-    <meta name="generator" content="Nicepage 5.1.5, nicepage.com">
-    <meta name="referrer" content="origin">
-    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
-    
-    
-    <script type="application/ld+json">{
-		"@context": "http://schema.org",
-		"@type": "Organization",
-		"name": "WebSite3496455",
-		"logo": "images/logo.png"
-}</script>
-    <meta name="theme-color" content="#478ac9">
-    <meta property="og:title" content="AddWord">
-    <meta property="og:type" content="website">
-  </head>
-  <body class="u-body u-xl-mode" data-lang="en">
-      <header class="u-clearfix u-header u-white u-header" id="sec-9f90"><div class="u-clearfix u-sheet u-sheet-1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <meta name="keywords" content="">
+        <meta name="description" content="">
+        <title>AddWord</title>
+        <link rel="stylesheet" href="nicepage.css" media="screen">
+        <link rel="stylesheet" href="AddWord.css" media="screen">
+        <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
+        <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
+        <meta name="generator" content="Nicepage 5.1.5, nicepage.com">
+        <meta name="referrer" content="origin">
+        <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:200,300,400,500,600,700|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+
+
+        <script type="application/ld+json">{
+            "@context": "http://schema.org",
+            "@type": "Organization",
+            "name": "WebSite3496455",
+            "logo": "images/logo.png"
+            }</script>
+        <meta name="theme-color" content="#478ac9">
+        <meta property="og:title" content="AddWord">
+        <meta property="og:type" content="website">
+    </head>
+    <body class="u-body u-xl-mode" data-lang="en">
+        <header class="u-clearfix u-header u-white u-header" id="sec-9f90"><div class="u-clearfix u-sheet u-sheet-1">
                 <a href="Front-Page.html" class="u-image u-logo u-image-1" data-image-width="300" data-image-height="300" title="Front Page">
                     <img src="images/logo.png" class="u-logo-image u-logo-image-1">
                 </a>
@@ -73,80 +73,93 @@
                         <option value="japanese">Japanese</option>
                         <option value="vietnamese">Vietnamese</option>
                     </select>
-                    
+
                 </form>
             </div></header>
-    <section class="u-clearfix u-gradient u-section-1" id="sec-0672">
-      <div class="u-clearfix u-sheet u-sheet-1">
-        <div class="u-form u-form-1">
-            <form action="add" method="post" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" name="form" style="padding: 10px;">
-            <div class="u-form-group u-form-select u-form-group-1">
-              <label for="select-91d7" class="u-label">Language</label>
-              <div class="u-form-select-wrapper">
-                <select id="select-91d7" name="language" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
-                  <option value="english">English</option>
-                  <option value="japanese">Japanese</option>
-                  <option value="vietnamese">Vietnamese</option>
-                </select>
-                <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
-              </div>
+        <script type="text/javascript">
+            function changetextbox()
+            {
+                var selectbox = document.getElementById("select-91d7");
+                var value = selectbox.value;
+                if(value == "japanese"){
+                    document.getElementById("text-def8").disabled = false;
+                }else{
+                    document.getElementById("text-def8").disabled = true;
+                }
+            }
+        </script>
+        <section class="u-clearfix u-gradient u-section-1" id="sec-0672">
+            <div class="u-clearfix u-sheet u-sheet-1">
+                <div class="u-form u-form-1">
+                    <form action="add" method="post" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" name="form" style="padding: 10px;">
+                        <div class="u-form-group u-form-select u-form-group-1">
+                            <label for="select-91d7" class="u-label">Language</label>
+                            <div class="u-form-select-wrapper">
+                                <select id="select-91d7" name="language" onchange="changetextbox()" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
+                                    <option value="english">English</option>
+                                    <option value="japanese">Japanese</option>
+                                    <option value="vietnamese">Vietnamese</option>
+                                </select>
+                                <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
+                            </div>
+                        </div>
+                        <div class="u-form-group u-form-name">
+                            <label for="name-7b2e" class="u-label">Word</label>
+                            <input type="text" placeholder="Enter word" id="name-7b2e" name="word" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
+                        </div>
+                        <div class="u-form-group u-form-group-3">
+                            <label for="text-def8" class="u-label">Roman Spelling (Japanese only)</label>
+                            <input type="text" disabled placeholder="Enter roman spelling for your Japanese word" id="text-def8" name="romaaji" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white">
+                        </div>
+                        <div class="u-form-group u-form-select u-form-group-4">
+                            <label for="select-c0b7" class="u-label">Part of Speech</label>
+                            <div class="u-form-select-wrapper">
+                                <select id="select-c0b7" name="pos" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white">
+                                    <option value="1">noun</option>
+                                    <option value="2">verb</option>
+                                    <option value="3">adjective</option>
+                                    <option value="4">determiner</option>
+                                    <option value="5">adverb</option>
+                                    <option value="6">pronoun</option>
+                                    <option value="7">preposition</option>
+                                    <option value="8">conjunction</option>
+                                    <option value="9">interjection</option>
+                                    <option value="10">(Japanese Only) particle</option>
+                                </select>
+                                <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
+                            </div>
+                        </div>
+                        <div class="u-form-group u-form-message">
+                            <label for="message-7b2e" class="u-label">Definition</label>
+                            <textarea placeholder="Enter word's definition" rows="4" cols="50" id="message-7b2e" name="definition" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white"></textarea>
+                        </div>
+                        <div class="u-form-group">
+                            <label for="email-7b2e" class="u-label">Example</label>
+                            <input type="text" placeholder="Give an example - and a translation if not English" id="email-7b2e" name="example" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white">
+                        </div>
+                        <div class="u-align-center u-form-group u-form-submit">
+                            <input type="submit" value="Add" class="u-border-none u-btn u-btn-submit u-button-style">
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="u-form-group u-form-name">
-              <label for="name-7b2e" class="u-label">Word</label>
-              <input type="text" placeholder="Enter word" id="name-7b2e" name="word" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
-            </div>
-            <div class="u-form-group u-form-group-3">
-              <label for="text-def8" class="u-label">Roman Spelling (Japanese only)</label>
-              <input type="text" placeholder="Enter roman spelling for your Japanese word" id="text-def8" name="romaaji" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white">
-            </div>
-            <div class="u-form-group u-form-select u-form-group-4">
-              <label for="select-c0b7" class="u-label">Part of Speech</label>
-              <div class="u-form-select-wrapper">
-                <select id="select-c0b7" name="pos" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white">
-                  <option value="1">noun</option>
-                  <option value="2">verb</option>
-                  <option value="3">adjective</option>
-                  <option value="4">determiner</option>
-                  <option value="5">adverb</option>
-                  <option value="6">pronoun</option>
-                  <option value="7">preposition</option>
-                  <option value="8">conjunction</option>
-                  <option value="9">interjection</option>
-                </select>
-                <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
-              </div>
-            </div>
-            <div class="u-form-group u-form-message">
-              <label for="message-7b2e" class="u-label">Definition</label>
-              <textarea placeholder="Enter word's definition" rows="4" cols="50" id="message-7b2e" name="definition" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white"></textarea>
-            </div>
-            <div class="u-form-group">
-              <label for="email-7b2e" class="u-label">Example</label>
-              <input type="text" placeholder="Give an example - and a translation if not English" id="email-7b2e" name="example" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white">
-            </div>
-            <div class="u-align-center u-form-group u-form-submit">
-              <input type="submit" value="Add" class="u-border-none u-btn u-btn-submit u-button-style">
-            </div>
-          </form>
-        </div>
-      </div>
-    </section>
-    
-    
-    <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-b7b1"><div class="u-clearfix u-sheet u-sheet-1">
-        <p class="u-small-text u-text u-text-variant u-text-1">PRJ301 Project Assignment<br>Dang Duc Minh - HE163055
-        </p>
-      </div></footer>
-    <section class="u-backlink u-clearfix u-grey-80">
-      <a class="u-link" href="https://nicepage.com/website-templates" target="_blank">
-        <span>Website Templates</span>
-      </a>
-      <p class="u-text">
-        <span>created with</span>
-      </p>
-      <a class="u-link" href="" target="_blank">
-        <span>Website Builder Software</span>
-      </a>. 
-    </section>
-  
-</body></html>
+        </section>
+
+
+        <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-b7b1"><div class="u-clearfix u-sheet u-sheet-1">
+                <p class="u-small-text u-text u-text-variant u-text-1">PRJ301 Project Assignment<br>Dang Duc Minh - HE163055
+                </p>
+            </div></footer>
+        <section class="u-backlink u-clearfix u-grey-80">
+            <a class="u-link" href="https://nicepage.com/website-templates" target="_blank">
+                <span>Website Templates</span>
+            </a>
+            <p class="u-text">
+                <span>created with</span>
+            </p>
+            <a class="u-link" href="" target="_blank">
+                <span>Website Builder Software</span>
+            </a>. 
+        </section>
+
+    </body></html>

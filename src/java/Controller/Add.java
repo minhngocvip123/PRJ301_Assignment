@@ -23,6 +23,7 @@ public class Add extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("utf-8");
         String language = req.getParameter("language");
         String word = req.getParameter("word");
         String romaaji = req.getParameter("romaaji");
@@ -42,6 +43,21 @@ public class Add extends HttpServlet {
                 w.addWord(word, pos, definition, example);
                 ArrayList<Word> list = new ArrayList<Word>();
                 list = w.getWord(word);
+                req.setAttribute("list", list);
+                req.getRequestDispatcher("Definition.jsp").forward(req, resp);
+            }
+        } else if (language.equals("japanese")) {
+            WordDAO w = new WordDAO();
+            if (w.checkWordJP(word)) {//if word already exists, let user add definition only
+                w.addDefinitionJP(word, pos, definition, example);
+                ArrayList<Word> list = new ArrayList<Word>();
+                list = w.getWordJP(word);
+                req.setAttribute("list", list);
+                req.getRequestDispatcher("Definition.jsp").forward(req, resp);
+            } else {//if the word doesn't exist, add new word and provide definition
+                w.addWordJP(word, romaaji, pos, definition, example);
+                ArrayList<Word> list = new ArrayList<Word>();
+                list = w.getWordJP(word);
                 req.setAttribute("list", list);
                 req.getRequestDispatcher("Definition.jsp").forward(req, resp);
             }

@@ -28,9 +28,9 @@ public class Search extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("utf-8");
         String searchStr = req.getParameter("search");
         String language = "";
-
         if (req.getParameter("language").equals("english")) {
             WordDAO w = new WordDAO();
             ArrayList<Word> list = new ArrayList<Word>();
@@ -58,10 +58,6 @@ public class Search extends HttpServlet {
         } else {
             language = "English"; //default language is English
         }
-
-//        PrintWriter pr = resp.getWriter();
-//        pr.println("Search term is: " + searchStr);
-//        pr.println("Selected language is: " + language);
     }
 
 }
