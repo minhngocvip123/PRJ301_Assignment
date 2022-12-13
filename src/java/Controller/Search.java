@@ -32,6 +32,8 @@ public class Search extends HttpServlet {
         req.setCharacterEncoding("utf-8");
         String searchStr = req.getParameter("search");
         String language = "";
+        
+        //English search processing
         if (req.getParameter("language").equals("english")) {
             WordDAO w = new WordDAO();
             ArrayList<Word> list = new ArrayList<Word>();
@@ -43,7 +45,7 @@ public class Search extends HttpServlet {
                 req.setAttribute("list", list);
                 req.getRequestDispatcher("Definition.jsp").forward(req, resp);
             }
-        } else if (req.getParameter("language").equals("japanese")) {
+        } else if (req.getParameter("language").equals("japanese")) { //Japanese
             WordDAO w = new WordDAO();
             ArrayList<Word> list = new ArrayList<Word>();
             list = w.getWordJP(searchStr);
@@ -54,7 +56,7 @@ public class Search extends HttpServlet {
                 req.setAttribute("list", list);
                 req.getRequestDispatcher("Definition.jsp").forward(req, resp);
             }
-        } else {
+        } else { //Vietnamese search processing
             WordDAO w = new WordDAO();
             ArrayList<Word> list = new ArrayList<Word>();
             String unsignedWord = RemoveAccent.removeAccent(searchStr);//remove accent from search string
