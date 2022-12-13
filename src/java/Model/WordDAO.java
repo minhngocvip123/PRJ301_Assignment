@@ -122,4 +122,29 @@ public class WordDAO extends DBContext {
         }
     }
 
+    public ArrayList<Word> getWordJP(String searchStr) {
+        ArrayList<Word> list = new ArrayList<Word>();
+        try {
+            String strSelect = "Select j.Word, j.Romaaji, p.PoS, d.[Definition], d.Example from Japanese j \n"
+                    + "join (DefinitionsJP d join PartOfSpeech p on d.PoSID = p.PoSID ) \n"
+                    + "on j.WordID = d.WordID where j.Word = ? or j.Romaaji = ?";
+            stm = cnn.prepareStatement(strSelect);
+            stm.setString(1, "N" + searchStr);
+            stm.setString(2, searchStr);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Word w = new Word();
+                w.word = rs.getString("Word");
+                w.romaaji = rs.getString("Romaaji");
+                w.PartOfSpeech = rs.getString("PoS");
+                w.Definition = rs.getString("Definition");
+                w.Example = rs.getString("Example");
+                list.add(w);
+            }
+        } catch (Exception e) {
+            System.out.println("getWordJP fail:" + e.getMessage());
+        }
+        return list;
+    }
+
 }

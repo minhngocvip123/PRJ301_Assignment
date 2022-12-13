@@ -37,13 +37,13 @@ public class Add extends HttpServlet {
                 ArrayList<Word> list = new ArrayList<Word>();
                 list = w.getWord(word);
                 req.setAttribute("list", list);
-                req.getRequestDispatcher("Definition_En.jsp").forward(req, resp);
+                req.getRequestDispatcher("Definition.jsp").forward(req, resp);
             } else {//if the word doesn't exist, add new word and provide definition
                 w.addWord(word, pos, definition, example);
                 ArrayList<Word> list = new ArrayList<Word>();
                 list = w.getWord(word);
                 req.setAttribute("list", list);
-                req.getRequestDispatcher("Definition_En.jsp").forward(req, resp);
+                req.getRequestDispatcher("Definition.jsp").forward(req, resp);
             }
         }
 

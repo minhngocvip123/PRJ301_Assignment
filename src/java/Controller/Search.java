@@ -40,12 +40,19 @@ public class Search extends HttpServlet {
                 req.getRequestDispatcher("NotExist.jsp").forward(req, resp);
             } else {//return searched word. Might return all values if found multiples
                 req.setAttribute("list", list);
-                req.getRequestDispatcher("Definition_En.jsp").forward(req, resp);
+                req.getRequestDispatcher("Definition.jsp").forward(req, resp);
             }
         } else if (req.getParameter("language").equals("japanese")) {
             WordDAO w = new WordDAO();
             ArrayList<Word> list = new ArrayList<Word>();
-//            list = w.getWordJP(searchStr);
+            list = w.getWordJP(searchStr);
+            if (list.isEmpty()) {//if returns nothing, send to handle page
+                req.setAttribute("searchStr", searchStr);
+                req.getRequestDispatcher("NotExist.jsp").forward(req, resp);
+            } else {//return searched word. Might return all values if found multiples
+                req.setAttribute("list", list);
+                req.getRequestDispatcher("Definition.jsp").forward(req, resp);
+            }
         } else if (req.getParameter("language").equals("vietnamese")) {
             language = "Vietnamese";
         } else {

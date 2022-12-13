@@ -122,7 +122,7 @@
             </div>
             <div class="u-form-group">
               <label for="email-7b2e" class="u-label">Example</label>
-              <input type="text" placeholder="Give an example of how to use the word" id="email-7b2e" name="example" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white">
+              <input type="text" placeholder="Give an example - and a translation if not English" id="email-7b2e" name="example" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white">
             </div>
             <div class="u-align-center u-form-group u-form-submit">
               <input type="submit" value="Add" class="u-border-none u-btn u-btn-submit u-button-style">

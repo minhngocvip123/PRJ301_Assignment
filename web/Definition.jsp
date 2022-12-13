@@ -83,6 +83,7 @@
             <section class="u-clearfix u-gradient u-section-1" id="sec-f3a2">
                 <div class="u-clearfix u-sheet u-sheet-1">
                     <h1 class="u-text u-text-default u-text-1">${item.getWord()}</h1>
+                    <h3 class="u-text u-text-default u-text-2">${item.getRomaaji()}</h3>
                     <h4 class="u-text u-text-default u-text-2">${item.getPartOfSpeech()}</h4>
                     <p class="u-large-text u-text u-text-default u-text-variant u-text-3">${item.getDefinition()}</p>
                     <blockquote class="u-text u-text-default u-text-4">${item.getExample()}</blockquote>
