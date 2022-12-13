@@ -13,7 +13,7 @@
         <meta charset="utf-8">
         <meta name="keywords" content="Sample Word">
         <meta name="description" content="">
-        <title>SearchResults_English</title>
+        <title>Search Results</title>
         <link rel="stylesheet" href="nicepage.css" media="screen">
         <link rel="stylesheet" href="SearchResults_English.css" media="screen">
         <script class="u-script" type="text/javascript" src="jquery-1.9.1.min.js" defer=""></script>
@@ -26,7 +26,7 @@
             "@context": "http://schema.org",
             "@type": "Organization",
             "name": "",
-            "logo": "/images/logo.png"
+            "logo": "images/logo.png"
             }</script>
         <meta name="theme-color" content="#478ac9">
         <meta property="og:title" content="SearchResults_English">
