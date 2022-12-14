@@ -25,6 +25,28 @@ public class EditController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //define edit operations here
+        int pos = Integer.parseInt(req.getParameter("pos"));
+        String defID = req.getParameter("defID");
+        String definition = req.getParameter("definition");
+        String example = req.getParameter("example");
+        String language = req.getParameter("language");
+        String word = req.getParameter("word");
+        WordDAO w = new WordDAO();
+        ArrayList<Word> list = new ArrayList<Word>();
+        if (language.equals("english")) {
+            w.editDefinitionEN(defID, pos, definition, example);
+            list = w.getWord(word);
+        } else if (language.equals("japanese")) {
+            w.editDefinitionJP(defID, pos, definition, example);
+            list = w.getWordJP(word);
+        } else {
+            w.editDefinitionVN(defID, pos, definition, example);
+            String unsignedWord = RemoveAccent.removeAccent(word);//remove accent from search string
+            list = w.getWordVN(unsignedWord);
+        }
+        req.setAttribute("language", language);
+        req.setAttribute("list", list);
+        req.getRequestDispatcher("Definition.jsp").forward(req, resp);
     }
 
     @Override
@@ -47,8 +69,9 @@ public class EditController extends HttpServlet {
                 def = w.findDefVN(defID);
             }
             req.setAttribute("language", language);
+            req.setAttribute("defID", defID);
             req.setAttribute("def", def);
-            req.getRequestDispatcher("edit.jsp").forward(req, resp);
+            req.getRequestDispatcher("EditWord.jsp").forward(req, resp);
         } else {
             //delete
             if (language.equals("english")) {

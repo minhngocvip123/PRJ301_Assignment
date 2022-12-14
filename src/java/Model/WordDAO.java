@@ -221,7 +221,7 @@ public class WordDAO extends DBContext {
             System.out.println(list.get(i).getPartOfSpeech());
             System.out.println(list.get(i).getDefinition());
             System.out.println(list.get(i).getExample());
-            System.out.println(list.get(i).getDefID()+ "\n");
+            System.out.println(list.get(i).getDefID() + "\n");
         }
 //        if(w.checkWordVN(word)) System.out.println("exist");
 //        else System.out.println("does not exist");
@@ -299,28 +299,65 @@ public class WordDAO extends DBContext {
     //all editing queries (update, delete)
     public Word findDefEN(String defID) {
         try {
-            String strSelect = "select [Definition], Example from Definitions where DefID = ?";
+            String strSelect = "select e.Word, d.[Definition], d.Example from Definitions d\n"
+                    + "inner join English e on d.WordID = e.WordID\n"
+                    + "where DefID = ?";
             stm = cnn.prepareStatement(strSelect);
             stm.setString(1, defID);
             rs = stm.executeQuery();
             while (rs.next()) {
                 Word u = new Word();
-                u.Definition = rs.getString(1);
-                u.Example = rs.getString(2);
+                u.word = rs.getString(1);
+                u.Definition = rs.getString(2);
+                u.Example = rs.getString(3);
                 return u;
             }
         } catch (Exception e) {
             System.out.println("findDefEN fail:" + e.getMessage());
         }
-        return null;    
+        return null;
     }
 
     public Word findDefJP(String defID) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            String strSelect = "select j.Word, d.[Definition], d.Example from DefinitionsJP d \n"
+                    + "inner join Japanese j on d.WordID = j.WordID \n"
+                    + "where DefID = ?";
+            stm = cnn.prepareStatement(strSelect);
+            stm.setString(1, defID);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Word u = new Word();
+                u.word = rs.getString(1);
+                u.Definition = rs.getString(2);
+                u.Example = rs.getString(3);
+                return u;
+            }
+        } catch (Exception e) {
+            System.out.println("findDefJP fail:" + e.getMessage());
+        }
+        return null;
     }
 
     public Word findDefVN(String defID) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            String strSelect = "select v.Word, d.[Definition], d.Example from DefinitionsVN d \n"
+                    + "inner join Vietnamese v on d.WordID = v.WordID \n"
+                    + "where DefID = ?";
+            stm = cnn.prepareStatement(strSelect);
+            stm.setString(1, defID);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Word u = new Word();
+                u.word = rs.getString(1);
+                u.Definition = rs.getString(2);
+                u.Example = rs.getString(3);
+                return u;
+            }
+        } catch (Exception e) {
+            System.out.println("findDefVN fail:" + e.getMessage());
+        }
+        return null;
     }
 
     public void deleteWordEN(String word) {
@@ -386,6 +423,51 @@ public class WordDAO extends DBContext {
             stm.execute();
         } catch (Exception e) {
             System.out.println("deleteDefVN fail:" + e.getMessage());
+        }
+    }
+
+    public void editDefinitionEN(String defID, int pos, String definition, String example) {
+        try {
+            String strupdate = "update Definitions set \n"
+                    + "PoSID = ?, [Definition] = ?, Example = ? where DefID = ?;";
+            stm = cnn.prepareStatement(strupdate);
+            stm.setInt(1, pos);
+            stm.setString(2, definition);
+            stm.setString(3, example);
+            stm.setString(4, defID);
+            stm.execute();
+        } catch (Exception e) {
+            System.out.println("editDefinitionEN fail:" + e.getMessage());
+        }
+    }
+
+    public void editDefinitionJP(String defID, int pos, String definition, String example) {
+        try {
+            String strupdate = "update DefinitionsJP set \n"
+                    + "PoSID = ?, [Definition] = ?, Example = ? where DefID = ?;";
+            stm = cnn.prepareStatement(strupdate);
+            stm.setInt(1, pos);
+            stm.setString(2, definition);
+            stm.setString(3, example);
+            stm.setString(4, defID);
+            stm.execute();
+        } catch (Exception e) {
+            System.out.println("editDefinitionJP fail:" + e.getMessage());
+        }
+    }
+
+    public void editDefinitionVN(String defID, int pos, String definition, String example) {
+        try {
+            String strupdate = "update DefinitionsVN set \n"
+                    + "PoSID = ?, [Definition] = ?, Example = ? where DefID = ?;";
+            stm = cnn.prepareStatement(strupdate);
+            stm.setInt(1, pos);
+            stm.setString(2, definition);
+            stm.setString(3, example);
+            stm.setString(4, defID);
+            stm.execute();
+        } catch (Exception e) {
+            System.out.println("editDefinitionVN fail:" + e.getMessage());
         }
     }
 
