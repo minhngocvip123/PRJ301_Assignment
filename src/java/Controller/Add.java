@@ -68,6 +68,8 @@ public class Add extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String word = req.getParameter("word");
+        req.setAttribute("word", word);
         req.getRequestDispatcher("AddWord.jsp").forward(req, resp);
     }
 

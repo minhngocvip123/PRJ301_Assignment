@@ -58,7 +58,6 @@
                     </div>
                     <div class="u-custom-menu u-nav-container">
                         <ul class="u-nav u-unstyled"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Front-Page.html" style="padding: 10px 34px;">Front Page</a>
-                            </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="AddWord.html" style="padding: 10px 34px;">Add a new word or definition</a>
                             </li></ul>
                     </div>
                     <div class="u-custom-menu u-nav-container-collapse">
@@ -66,8 +65,7 @@
                             <div class="u-inner-container-layout u-sidenav-overflow">
                                 <div class="u-menu-close"></div>
                                 <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Front-Page.html">Front Page</a>
-                                    </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="AddWord.html">Add a new word or definition</a>
-                                    </li></ul>
+                                    </li>></ul>
                             </div>
                         </div>
                         <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
@@ -80,7 +78,7 @@
                 <h1 class="u-text u-text-default u-text-white u-title u-text-1">OOPS!</h1>
                 <p class="u-large-text u-text u-text-variant u-text-white u-text-2">The word ${searchStr} you searched for might not exist or have not been added to our archive.<br>Help us expand our archive by clicking the add button to add and define a new vocabulary.
                 </p>
-                <a href="add" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-50 u-btn-1">add new word&nbsp;<span class="u-file-icon u-icon u-text-white u-icon-1"><img src="images/3416075-3349e360.png" alt=""></span>
+                <a href="add?word=${searchStr}" class="u-border-2 u-border-grey-75 u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-50 u-btn-1">add new word&nbsp;<span class="u-file-icon u-icon u-text-white u-icon-1"><img src="images/3416075-3349e360.png" alt=""></span>
                 </a>
             </div>
         </section>

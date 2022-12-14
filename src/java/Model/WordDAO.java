@@ -126,7 +126,7 @@ public class WordDAO extends DBContext {
     public ArrayList<Word> getWordJP(String searchStr) {
         ArrayList<Word> list = new ArrayList<Word>();
         try {
-            String strSelect = "Select j.Word, j.Romaaji, p.PoS, d.[Definition], d.Example from Japanese j \n"
+            String strSelect = "Select j.Word, j.Romaaji, p.PoS, d.[Definition], d.Example, d.DefID from Japanese j \n"
                     + "join (DefinitionsJP d join PartOfSpeech p on d.PoSID = p.PoSID ) \n"
                     + "on j.WordID = d.WordID where j.Word = ? or j.Romaaji = ?";
             stm = cnn.prepareStatement(strSelect);
@@ -140,6 +140,7 @@ public class WordDAO extends DBContext {
                 w.PartOfSpeech = rs.getString("PoS");
                 w.Definition = rs.getString("Definition");
                 w.Example = rs.getString("Example");
+                w.defID = rs.getInt("DefID");
                 list.add(w);
             }
         } catch (Exception e) {
@@ -201,7 +202,7 @@ public class WordDAO extends DBContext {
 
     //main method to test out all these different DAO methods.
     public static void main(String[] args) {
-        String word = "cần";
+        String word = "あの";
         String romaaji = "moumou";
         int pos = 2;
         String definition = "Need, must, to want";
@@ -212,21 +213,28 @@ public class WordDAO extends DBContext {
 //        else System.out.println("does not exist");
 //        w.addWordJP(word, romaaji, pos, definition, example);
 //        w.addDefinitionJP(word, pos, definition, example);
-//        ArrayList<Word> list = new ArrayList<Word>();
+        ArrayList<Word> list = new ArrayList<Word>();
 //        list = w.getWordJP("から");
-//        list = w.getWordVN(RemoveAccent.removeAccent("tốt"));
-//        for (int i = 0; i < list.size(); i++) {
-//            System.out.println(list.get(i));
-//        }
+        list = w.getWordVN(RemoveAccent.removeAccent("tốt"));
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i).getWord());
+            System.out.println(list.get(i).getPartOfSpeech());
+            System.out.println(list.get(i).getDefinition());
+            System.out.println(list.get(i).getExample());
+            System.out.println(list.get(i).getDefID()+ "\n");
+        }
 //        if(w.checkWordVN(word)) System.out.println("exist");
 //        else System.out.println("does not exist");
-        w.addDefinitionVN(word, pos, definition, example);
+//        w.addDefinitionVN(word, pos, definition, example);
+//        w.deleteWordEN(word);
+//        w.deleteDefJP("1");
+//        w.deleteWordJP(word);
     }
 
     public ArrayList<Word> getWordVN(String searchStr) {
         ArrayList<Word> list = new ArrayList<Word>();
         try {
-            String strSelect = "Select v.Word, p.PoS, d.[Definition], d.Example from Vietnamese v \n"
+            String strSelect = "Select v.Word, p.PoS, d.[Definition], d.Example, d.DefID from Vietnamese v \n"
                     + "join (DefinitionsVN d join PartOfSpeech p on d.PoSID = p.PoSID ) \n"
                     + "on v.WordID = d.WordID where dbo.ufn_removeMark(v.Word) = ?";
             stm = cnn.prepareStatement(strSelect);
@@ -238,6 +246,7 @@ public class WordDAO extends DBContext {
                 w.PartOfSpeech = rs.getString("PoS");
                 w.Definition = rs.getString("Definition");
                 w.Example = rs.getString("Example");
+                w.defID = rs.getInt("DefID");
                 list.add(w);
             }
         } catch (Exception e) {
@@ -288,9 +297,22 @@ public class WordDAO extends DBContext {
     }
 
     //all editing queries (update, delete)
-    
     public Word findDefEN(String defID) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+            String strSelect = "select [Definition], Example from Definitions where DefID = ?";
+            stm = cnn.prepareStatement(strSelect);
+            stm.setString(1, defID);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Word u = new Word();
+                u.Definition = rs.getString(1);
+                u.Example = rs.getString(2);
+                return u;
+            }
+        } catch (Exception e) {
+            System.out.println("findDefEN fail:" + e.getMessage());
+        }
+        return null;    
     }
 
     public Word findDefJP(String defID) {
@@ -301,16 +323,70 @@ public class WordDAO extends DBContext {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public void deleteWordEN(String defID) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void deleteWordEN(String word) {
+        try {
+            String strupdate = "delete from English where Word = ?";
+            stm = cnn.prepareStatement(strupdate);
+            stm.setString(1, word);
+            stm.execute();
+        } catch (Exception e) {
+            System.out.println("deleteWordEN fail:" + e.getMessage());
+        }
     }
 
-    public void deleteWordJP(String defID) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void deleteDefEN(String defID) {
+        try {
+            String strupdate = "delete from Definitions where DefID = ?";
+            stm = cnn.prepareStatement(strupdate);
+            stm.setString(1, defID);
+            stm.execute();
+        } catch (Exception e) {
+            System.out.println("deleteDefEN fail:" + e.getMessage());
+        }
     }
 
-    public void deleteWordVN(String defID) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void deleteWordJP(String word) {
+        try {
+            String strupdate = "delete from Japanese where Word = ?";
+            stm = cnn.prepareStatement(strupdate);
+            stm.setString(1, word);
+            stm.execute();
+        } catch (Exception e) {
+            System.out.println("deleteWordJP fail:" + e.getMessage());
+        }
+    }
+
+    public void deleteDefJP(String defID) {
+        try {
+            String strupdate = "delete from DefinitionsJP where DefID = ?";
+            stm = cnn.prepareStatement(strupdate);
+            stm.setString(1, defID);
+            stm.execute();
+        } catch (Exception e) {
+            System.out.println("deleteDefJP fail:" + e.getMessage());
+        }
+    }
+
+    public void deleteWordVN(String word) {
+        try {
+            String strupdate = "delete from Vietnamese where Word = ?";
+            stm = cnn.prepareStatement(strupdate);
+            stm.setString(1, word);
+            stm.execute();
+        } catch (Exception e) {
+            System.out.println("deleteWordVN fail:" + e.getMessage());
+        }
+    }
+
+    public void deleteDefVN(String defID) {
+        try {
+            String strupdate = "delete from DefinitionsVN where DefID = ?";
+            stm = cnn.prepareStatement(strupdate);
+            stm.setString(1, defID);
+            stm.execute();
+        } catch (Exception e) {
+            System.out.println("deleteDefVN fail:" + e.getMessage());
+        }
     }
 
 }

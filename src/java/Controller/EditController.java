@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import Model.RemoveAccent;
 import Model.Word;
 import Model.WordDAO;
 import jakarta.servlet.ServletException;
@@ -28,6 +29,7 @@ public class EditController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("utf-8");
         String defID = req.getParameter("defID");
         String mod = req.getParameter("mod");
         String language = req.getParameter("language");
@@ -50,18 +52,53 @@ public class EditController extends HttpServlet {
         } else {
             //delete
             if (language.equals("english")) {
-                w.deleteWordEN(defID);
-                list = w.getWord(word);
+                ArrayList<Word> checkList = new ArrayList<Word>();
+                checkList = w.getWord(word);
+                if (checkList.size() == 1) {
+                    w.deleteDefEN(defID);//delete both def and word
+                    w.deleteWordEN(word);
+                    req.setAttribute("searchStr", word);
+                    req.getRequestDispatcher("NotExist.jsp").forward(req, resp);
+                } else {
+                    w.deleteDefEN(defID);
+                    list = w.getWord(word);
+                    req.setAttribute("language", language);
+                    req.setAttribute("list", list);
+                    req.getRequestDispatcher("Definition.jsp").forward(req, resp);
+                }
             } else if (language.equals("japanese")) {
-                w.deleteWordJP(defID);
-                list = w.getWordJP(word);
+                ArrayList<Word> checkList = new ArrayList<Word>();
+                checkList = w.getWordJP(word);
+                if (checkList.size() == 1) {
+                    w.deleteDefJP(defID);
+                    w.deleteWordJP(word);
+                    req.setAttribute("searchStr", word);
+                    req.getRequestDispatcher("NotExist.jsp").forward(req, resp);
+                } else {
+                    w.deleteDefJP(defID);
+                    list = w.getWordJP(word);
+                    req.setAttribute("language", language);
+                    req.setAttribute("list", list);
+                    req.getRequestDispatcher("Definition.jsp").forward(req, resp);
+                }
             } else {
-                w.deleteWordVN(defID);
-                list = w.getWordVN(word);
+                ArrayList<Word> checkList = new ArrayList<Word>();
+                String unsignedWord = RemoveAccent.removeAccent(word);//remove accent from search string
+                checkList = w.getWordVN(unsignedWord);
+                if (checkList.size() == 1) {
+                    w.deleteDefVN(defID);
+                    w.deleteWordVN(word);
+                    req.setAttribute("searchStr", word);
+                    req.getRequestDispatcher("NotExist.jsp").forward(req, resp);
+                } else {
+                    w.deleteDefVN(defID);
+                    list = w.getWordVN(unsignedWord);
+                    req.setAttribute("language", language);
+                    req.setAttribute("list", list);
+                    req.getRequestDispatcher("Definition.jsp").forward(req, resp);
+                }
             }
-            req.setAttribute("language", language);
-            req.setAttribute("list", list);
-            req.getRequestDispatcher("Definition.jsp").forward(req, resp);
+
         }
     }
 
