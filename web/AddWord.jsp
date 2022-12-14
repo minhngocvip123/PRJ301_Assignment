@@ -105,7 +105,7 @@
                         </div>
                         <div class="u-form-group u-form-name">
                             <label for="name-7b2e" class="u-label">Word</label>
-                            <input type="text" placeholder="Enter word" id="name-7b2e" name="word" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
+                            <input type="text" placeholder="Enter word (if Vietnamese please include marks)" id="name-7b2e" name="word" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="required">
                         </div>
                         <div class="u-form-group u-form-group-3">
                             <label for="text-def8" class="u-label">Roman Spelling (Japanese only)</label>

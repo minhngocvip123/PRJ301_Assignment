@@ -197,26 +197,29 @@ public class WordDAO extends DBContext {
         }
         return false;
     }
-    
+
     //main method to test out all these different DAO methods.
     public static void main(String[] args) {
-        String word = "濛々";
+        String word = "cần";
         String romaaji = "moumou";
-        int pos = 3;
-        String definition = "vague (as in being unable to think clearly); dim";
-        String example = "ほこりがもうもうと立った。 - The dust rose in clouds.";
+        int pos = 2;
+        String definition = "Need, must, to want";
+        String example = "Anh cần em trong cuộc đời này - I need you in my life";
 
         WordDAO w = new WordDAO();
 //        if(w.checkWordJP(word)) System.out.println("exist");
 //        else System.out.println("does not exist");
 //        w.addWordJP(word, romaaji, pos, definition, example);
 //        w.addDefinitionJP(word, pos, definition, example);
-        ArrayList<Word> list = new ArrayList<Word>();
+//        ArrayList<Word> list = new ArrayList<Word>();
 //        list = w.getWordJP("から");
-        list = w.getWordVN(RemoveAccent.removeAccent("tốt"));
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i));
-        }
+//        list = w.getWordVN(RemoveAccent.removeAccent("tốt"));
+//        for (int i = 0; i < list.size(); i++) {
+//            System.out.println(list.get(i));
+//        }
+//        if(w.checkWordVN(word)) System.out.println("exist");
+//        else System.out.println("does not exist");
+        w.addDefinitionVN(word, pos, definition, example);
     }
 
     public ArrayList<Word> getWordVN(String searchStr) {
@@ -241,4 +244,46 @@ public class WordDAO extends DBContext {
         }
         return list;
     }
+
+    public boolean checkWordVN(String word) {
+        try {
+            String strSelect = "select * from Vietnamese where Word = ?";
+            stm = cnn.prepareStatement(strSelect);
+            stm.setString(1, word);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("checkWordVN fail:" + e.getMessage());
+        }
+        return false;
+    }
+
+    public void addDefinitionVN(String word, int pos, String definition, String example) {
+        try {
+            String strupdate = "insert into DefinitionsVN \n"
+                    + "values ((select WordID from Vietnamese where Word = ?), ?, ?, ?)";
+            stm = cnn.prepareStatement(strupdate);
+            stm.setString(1, word);
+            stm.setInt(2, pos);
+            stm.setString(3, definition);
+            stm.setString(4, example);
+            stm.execute();
+        } catch (Exception e) {
+            System.out.println("addDefinitionVN fail:" + e.getMessage());
+        }
+    }
+
+    public void addWordVN(String word) {
+        try {
+            String strupdate = "insert into Vietnamese (Word) values (?) ";
+            stm = cnn.prepareStatement(strupdate);
+            stm.setString(1, word);
+            stm.execute();
+        } catch (Exception e) {
+            System.out.println("addWordVN fail:" + e.getMessage());
+        }
+    }
+
 }

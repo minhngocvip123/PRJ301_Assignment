@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import Model.RemoveAccent;
 import Model.Word;
 import Model.WordDAO;
 import jakarta.servlet.ServletException;
@@ -58,6 +59,23 @@ public class Add extends HttpServlet {
                 w.addWordJP(word, romaaji, pos, definition, example);
                 ArrayList<Word> list = new ArrayList<Word>();
                 list = w.getWordJP(word);
+                req.setAttribute("list", list);
+                req.getRequestDispatcher("Definition.jsp").forward(req, resp);
+            }
+        }else{
+            WordDAO w = new WordDAO();
+            String unsignedWord = RemoveAccent.removeAccent(word);//remove accent from search string
+            if (w.checkWordVN(word)) {//if word already exists, let user add definition only
+                w.addDefinitionVN(word, pos, definition, example);
+                ArrayList<Word> list = new ArrayList<Word>();
+                list = w.getWordVN(unsignedWord);
+                req.setAttribute("list", list);
+                req.getRequestDispatcher("Definition.jsp").forward(req, resp);
+            } else {//if the word doesn't exist, add new word and provide definition
+                w.addWordVN(word);
+                w.addDefinitionVN(word, pos, definition, example);
+                ArrayList<Word> list = new ArrayList<Word>();
+                list = w.getWordVN(unsignedWord);
                 req.setAttribute("list", list);
                 req.getRequestDispatcher("Definition.jsp").forward(req, resp);
             }
