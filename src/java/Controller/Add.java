@@ -31,56 +31,39 @@ public class Add extends HttpServlet {
         int pos = Integer.parseInt(req.getParameter("pos"));
         String definition = req.getParameter("definition");
         String example = req.getParameter("example");
-
+        ArrayList<Word> list = new ArrayList<Word>();
+        WordDAO w = new WordDAO();
+        
         if (language.equals("english")) {
-            WordDAO w = new WordDAO();
             if (w.checkWord(word)) {//if word already exists, let user add definition only
                 w.addDefinition(word, pos, definition, example);
-                ArrayList<Word> list = new ArrayList<Word>();
                 list = w.getWord(word);
-                req.setAttribute("list", list);
-                req.getRequestDispatcher("Definition.jsp").forward(req, resp);
             } else {//if the word doesn't exist, add new word and provide definition
                 w.addWord(word, pos, definition, example);
-                ArrayList<Word> list = new ArrayList<Word>();
                 list = w.getWord(word);
-                req.setAttribute("list", list);
-                req.getRequestDispatcher("Definition.jsp").forward(req, resp);
             }
         } else if (language.equals("japanese")) {
-            WordDAO w = new WordDAO();
             if (w.checkWordJP(word)) {//if word already exists, let user add definition only
                 w.addDefinitionJP(word, pos, definition, example);
-                ArrayList<Word> list = new ArrayList<Word>();
                 list = w.getWordJP(word);
-                req.setAttribute("list", list);
-                req.getRequestDispatcher("Definition.jsp").forward(req, resp);
             } else {//if the word doesn't exist, add new word and provide definition
                 w.addWordJP(word, romaaji, pos, definition, example);
-                ArrayList<Word> list = new ArrayList<Word>();
                 list = w.getWordJP(word);
-                req.setAttribute("list", list);
-                req.getRequestDispatcher("Definition.jsp").forward(req, resp);
             }
-        }else{
-            WordDAO w = new WordDAO();
+        } else {
             String unsignedWord = RemoveAccent.removeAccent(word);//remove accent from search string
             if (w.checkWordVN(word)) {//if word already exists, let user add definition only
                 w.addDefinitionVN(word, pos, definition, example);
-                ArrayList<Word> list = new ArrayList<Word>();
                 list = w.getWordVN(unsignedWord);
-                req.setAttribute("list", list);
-                req.getRequestDispatcher("Definition.jsp").forward(req, resp);
             } else {//if the word doesn't exist, add new word and provide definition
                 w.addWordVN(word);
                 w.addDefinitionVN(word, pos, definition, example);
-                ArrayList<Word> list = new ArrayList<Word>();
                 list = w.getWordVN(unsignedWord);
-                req.setAttribute("list", list);
-                req.getRequestDispatcher("Definition.jsp").forward(req, resp);
             }
         }
-
+        req.setAttribute("language", language);
+        req.setAttribute("list", list);
+        req.getRequestDispatcher("Definition.jsp").forward(req, resp);
     }
 
     @Override

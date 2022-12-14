@@ -11,6 +11,7 @@ package Model;
 public class Word {
     int wordID;
     String word;
+    int defID;
     String romaaji;
     String PartOfSpeech;
     String Definition;
@@ -19,9 +20,10 @@ public class Word {
     public Word() {
     }
 
-    public Word(int wordID, String word, String romaaji, String PartOfSpeech, String Definition, String Example) {
+    public Word(int wordID, String word, int defID, String romaaji, String PartOfSpeech, String Definition, String Example) {
         this.wordID = wordID;
         this.word = word;
+        this.defID = defID;
         this.romaaji = romaaji;
         this.PartOfSpeech = PartOfSpeech;
         this.Definition = Definition;
@@ -74,6 +76,14 @@ public class Word {
 
     public void setRomaaji(String romaaji) {
         this.romaaji = romaaji;
+    }
+
+    public int getDefID() {
+        return defID;
+    }
+
+    public void setDefID(int defID) {
+        this.defID = defID;
     }
     
 }

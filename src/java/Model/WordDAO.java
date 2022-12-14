@@ -37,7 +37,7 @@ public class WordDAO extends DBContext {
     public ArrayList<Word> getWord(String searchStr) {
         ArrayList<Word> list = new ArrayList<Word>();
         try {
-            String strSelect = "Select e.Word, p.PoS, d.[Definition], d.Example from English e \n"
+            String strSelect = "Select e.Word, p.PoS, d.[Definition], d.Example, d.DefID from English e \n"
                     + "join (Definitions d join PartOfSpeech p on d.PoSID = p.PoSID )\n"
                     + "on e.WordID = d.WordID where e.Word = ?";
             stm = cnn.prepareStatement(strSelect);
@@ -49,6 +49,7 @@ public class WordDAO extends DBContext {
                 w.PartOfSpeech = rs.getString("PoS");
                 w.Definition = rs.getString("Definition");
                 w.Example = rs.getString("Example");
+                w.defID = rs.getInt("DefID");
                 list.add(w);
             }
         } catch (Exception e) {
@@ -284,6 +285,32 @@ public class WordDAO extends DBContext {
         } catch (Exception e) {
             System.out.println("addWordVN fail:" + e.getMessage());
         }
+    }
+
+    //all editing queries (update, delete)
+    
+    public Word findDefEN(String defID) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public Word findDefJP(String defID) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public Word findDefVN(String defID) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void deleteWordEN(String defID) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void deleteWordJP(String defID) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void deleteWordVN(String defID) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

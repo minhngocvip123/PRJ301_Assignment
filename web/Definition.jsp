@@ -87,6 +87,9 @@
                     <h4 class="u-text u-text-default u-text-2">${item.getPartOfSpeech()}</h4>
                     <p class="u-large-text u-text u-text-default u-text-variant u-text-3">${item.getDefinition()}</p>
                     <blockquote class="u-text u-text-default u-text-4">${item.getExample()}</blockquote>
+                    <h4></h4>
+                    <a href="edit?mod=0&languague=${language}&defID=${item.getDefID()}">Edit Definition</a>&emsp;&emsp;&emsp;
+                    <a href="edit?mod=1&languague=${language}&defID=${item.getDefID()}&word=${item.getWord()}">Delete Definition (will delete word if this is its only definition)</a>
                     <div class="u-border-3 u-border-grey-dark-1 u-expanded-width u-line u-line-horizontal u-line-1"></div>
                 </div>
             </section>

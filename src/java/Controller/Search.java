@@ -13,7 +13,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -31,10 +30,10 @@ public class Search extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
         String searchStr = req.getParameter("search");
-        String language = "";
+        String language = req.getParameter("language");
         
         //English search processing
-        if (req.getParameter("language").equals("english")) {
+        if (language.equals("english")) {
             WordDAO w = new WordDAO();
             ArrayList<Word> list = new ArrayList<Word>();
             list = w.getWord(searchStr);
@@ -42,10 +41,11 @@ public class Search extends HttpServlet {
                 req.setAttribute("searchStr", searchStr);
                 req.getRequestDispatcher("NotExist.jsp").forward(req, resp);
             } else {//return searched word. Might return all values if found multiples
+                req.setAttribute("language", language);
                 req.setAttribute("list", list);
                 req.getRequestDispatcher("Definition.jsp").forward(req, resp);
             }
-        } else if (req.getParameter("language").equals("japanese")) { //Japanese
+        } else if (language.equals("japanese")) { //Japanese
             WordDAO w = new WordDAO();
             ArrayList<Word> list = new ArrayList<Word>();
             list = w.getWordJP(searchStr);
@@ -53,6 +53,7 @@ public class Search extends HttpServlet {
                 req.setAttribute("searchStr", searchStr);
                 req.getRequestDispatcher("NotExist.jsp").forward(req, resp);
             } else {//return searched word. Might return all values if found multiples
+                req.setAttribute("language", language);
                 req.setAttribute("list", list);
                 req.getRequestDispatcher("Definition.jsp").forward(req, resp);
             }
@@ -65,6 +66,7 @@ public class Search extends HttpServlet {
                 req.setAttribute("searchStr", searchStr);
                 req.getRequestDispatcher("NotExist.jsp").forward(req, resp);
             } else {//return searched word. Might return all values if found multiples
+                req.setAttribute("language", language);
                 req.setAttribute("list", list);
                 req.getRequestDispatcher("Definition.jsp").forward(req, resp);
             }
