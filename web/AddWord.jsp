@@ -125,6 +125,7 @@
                                     <option value="8">conjunction</option>
                                     <option value="9">interjection</option>
                                     <option value="10">(Japanese Only) particle</option>
+                                    <option value="11">modal verb</option>
                                 </select>
                                 <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
                             </div>
